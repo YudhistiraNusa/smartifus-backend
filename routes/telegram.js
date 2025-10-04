@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
 
 router.post('/send-alert', async (req, res) => {
   // === LOG 1: Konfirmasi Endpoint Terpanggil ===
