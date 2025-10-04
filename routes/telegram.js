@@ -38,58 +38,58 @@ const sendWithRetry = async (payload, maxRetries = 3) => {
 };
 
 // Endpoint untuk send alert
-router.post('/send-alert', async (req, res) => {
-  try {
-    const { weight, timestamp, chatId } = req.body;
+// router.post('/send-alert', async (req, res) => {
+//   try {
+//     const { weight, timestamp, chatId } = req.body;
 
-    if (!weight || !timestamp) {
-      return res.status(400).json({ error: 'Weight and timestamp are required' });
-    }
+//     if (!weight || !timestamp) {
+//       return res.status(400).json({ error: 'Weight and timestamp are required' });
+//     }
 
-    const targetChatId = chatId || process.env.TELEGRAM_CHAT_ID;
+//     const targetChatId = chatId || process.env.TELEGRAM_CHAT_ID;
     
-    if (!targetChatId) {
-      return res.status(500).json({ error: 'Telegram chat ID not configured' });
-    }
+//     if (!targetChatId) {
+//       return res.status(500).json({ error: 'Telegram chat ID not configured' });
+//     }
 
-    const message = `⚠️ **PERINGATAN DINI SMARTIFUS** ⚠️\n` +
-                   `Berat Infus: ${weight}g\n` +
-                   `Status: HAMPIR HABIS\n` +
-                   `Waktu: ${timestamp}\n` +
-                   `Segera ganti infus!`;
+//     const message = `⚠️ **PERINGATAN DINI SMARTIFUS** ⚠️\n` +
+//                    `Berat Infus: ${weight}g\n` +
+//                    `Status: HAMPIR HABIS\n` +
+//                    `Waktu: ${timestamp}\n` +
+//                    `Segera ganti infus!`;
 
-    const payload = {
-      chat_id: targetChatId,
-      text: message,
-      parse_mode: 'Markdown'
-    };
+//     const payload = {
+//       chat_id: targetChatId,
+//       text: message,
+//       parse_mode: 'Markdown'
+//     };
 
-    const result = await sendWithRetry(payload);
+//     const result = await sendWithRetry(payload);
 
-    if (result.success) {
-      // Log successful delivery
-      console.log(`Telegram alert sent successfully to chat ${targetChatId}`);
-      res.json({ 
-        success: true, 
-        message: 'Alert sent successfully',
-        messageId: result.data.message_id
-      });
-    } else {
-      console.error('Failed to send Telegram alert:', result.error);
-      res.status(500).json({ 
-        success: false, 
-        error: 'Failed to send Telegram alert',
-        details: result.error
-      });
-    }
+//     if (result.success) {
+//       // Log successful delivery
+//       console.log(`Telegram alert sent successfully to chat ${targetChatId}`);
+//       res.json({ 
+//         success: true, 
+//         message: 'Alert sent successfully',
+//         messageId: result.data.message_id
+//       });
+//     } else {
+//       console.error('Failed to send Telegram alert:', result.error);
+//       res.status(500).json({ 
+//         success: false, 
+//         error: 'Failed to send Telegram alert',
+//         details: result.error
+//       });
+//     }
 
-  } catch (error) {
-    console.error('Error in send-alert endpoint:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: 'Internal server error' 
-    });
-  }
-});
+//   } catch (error) {
+//     console.error('Error in send-alert endpoint:', error);
+//     res.status(500).json({ 
+//       success: false, 
+//       error: 'Internal server error' 
+//     });
+//   }
+// });
 
 module.exports = router;

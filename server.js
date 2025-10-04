@@ -45,3 +45,23 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
   console.log(`SMARTIFUS Backend running on port ${PORT}`);
 });
+
+// Endpoint testing tanpa authentication
+app.post('/api/test/telegram', async (req, res) => {
+    try {
+        const { weight, timestamp } = req.body;
+        
+        console.log('🔧 TEST MODE - Telegram Alert:');
+        console.log(`Weight: ${weight}g, Time: ${timestamp}`);
+        
+        // Simulasi response sukses
+        res.json({
+            success: true,
+            message: 'TEST MODE - Alert would be sent to Telegram',
+            simulated: true,
+            data: { weight, timestamp }
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
