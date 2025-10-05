@@ -3,17 +3,17 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-app.use(cors({
-    origin: ['http://localhost:8080', 'http://127.0.0.1:8080'], // URL frontend lokal
-    methods: ['GET', 'POST'],
-    credentials: true
-}));
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const initializeFirebaseAdmin = require('./config/firebase-admin');
 initializeFirebaseAdmin();
+
+app.use(cors({
+    origin: ['http://localhost:8080', 'http://127.0.0.1:8080'], // URL frontend lokal
+    methods: ['GET', 'POST'],
+    credentials: true
+}));
 
 // // Middleware
 // app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
