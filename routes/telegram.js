@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-require('dotenv').config();
 
 router.post('/send-alert', async (req, res) => {
   // === LOG 1: Konfirmasi Endpoint Terpanggil ===
@@ -26,6 +25,7 @@ router.post('/send-alert', async (req, res) => {
     }
 
     const message = `⚠️ **PERINGATAN DINI SMARTIFUS** ⚠️\n` +
+                   `Nama Pasien : Aufa ganteng\n` +
                    `Berat Infus: ${weight}g\n` +
                    `Status: HAMPIR HABIS\n` +
                    `Waktu: ${timestamp}\n` +
