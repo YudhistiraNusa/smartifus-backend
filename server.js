@@ -17,7 +17,7 @@ app.use(cors({
 
 // // Middleware
 // app.use(cors({ origin: process.env.FRONTEND_URL || '*' }));
-// app.use(express.json());
+app.use(express.json());
 
 // Rate Limiting - penting untuk API Telegram :cite[8]
 const telegramLimiter = rateLimit({
